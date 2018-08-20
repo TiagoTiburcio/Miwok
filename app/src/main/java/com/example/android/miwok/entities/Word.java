@@ -6,6 +6,7 @@ public class Word {
     private String mMiwokTranslation;
     private int backColor;
     private int mSymbolWord;
+    private int mSoundWord;
 
     public int getBackColor() {
         return backColor;
@@ -39,18 +40,37 @@ public class Word {
         this.mDefaultTranslation = mDefaultTranslation;
     }
 
-    public Word(String defaultTranslation, String miwokTranslation, int symbolWord, int back) {
+    public int getmSoundWord() {
+        return mSoundWord;
+    }
+
+    private void setmSoundWord(int mSoundWord) {
+        this.mSoundWord = mSoundWord;
+    }
+    public Word(String defaultTranslation, String miwokTranslation, int symbolWord, int back, int sound) {
         this.setmDefaultTranslation(defaultTranslation);
         this.setMiwokTranslation(miwokTranslation);
         this.setmSymbolWord(symbolWord);
         this.setBackColor(back);
+        this.setmSoundWord(sound);
     }
 
-    public Word(String defaultTranslation, String miwokTranslation, int back) {
+    public Word(String defaultTranslation, String miwokTranslation, int back,int sound) {
         this.setmDefaultTranslation(defaultTranslation);
         this.setMiwokTranslation(miwokTranslation);
         this.setBackColor(back);
         this.setmSymbolWord(0);
+        this.setmSoundWord(sound);
     }
 
+    @Override
+    public String toString() {
+        return "Word{" +
+                "mDefaultTranslation='" + mDefaultTranslation + '\'' +
+                ", mMiwokTranslation='" + mMiwokTranslation + '\'' +
+                ", backColor=" + backColor +
+                ", mSymbolWord=" + mSymbolWord +
+                ", mSoundWord=" + mSoundWord +
+                '}';
+    }
 }

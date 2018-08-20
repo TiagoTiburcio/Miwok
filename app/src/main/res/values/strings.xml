@@ -28,4 +28,6 @@
     <!-- Category name for the vocabulary words for family members [CHAR LIMIT=20] -->
     <string name="category_family">Family Members</string>
     <string name="collors">Collors</string>
+    <string name="sound">Sound</string>
+    <string name="play">Play</string>
 </resources>

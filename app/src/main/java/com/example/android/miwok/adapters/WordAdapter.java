@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -38,6 +39,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
         this.mViewHolder.defaultTranslationTextView = listItemView.findViewById(R.id.default_text_view);
         this.mViewHolder.miwokTranslationTextView = listItemView.findViewById(R.id.miwok_text_view);
         this.mViewHolder.symbolWordImageView = listItemView.findViewById(R.id.symbol_image_view);
+        this.mViewHolder.playImageView = listItemView.findViewById(R.id.play_image_view);
 
         if (courrentWordList != null) {
             this.mViewHolder.listItemRelativeLayout.setBackgroundResource(courrentWordList.getBackColor());
@@ -48,14 +50,19 @@ public class WordAdapter extends ArrayAdapter<Word> {
             } else {
                 this.mViewHolder.symbolWordImageView.setVisibility(View.GONE);
             }
+
         }
         return listItemView;
     }
+
+
+
 
     private class ViewHolder {
         RelativeLayout listItemRelativeLayout;
         TextView defaultTranslationTextView;
         TextView miwokTranslationTextView;
         ImageView symbolWordImageView;
+        ImageView playImageView;
     }
 }

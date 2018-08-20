@@ -1,8 +1,12 @@
 package com.example.android.miwok.activities;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.miwok.R;
 import com.example.android.miwok.adapters.WordAdapter;
@@ -12,23 +16,42 @@ import java.util.ArrayList;
 
 public class ColorsActivity extends AppCompatActivity {
     private ViewHolder mViewHolder = new ViewHolder();
+    private MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colors);
-        ArrayList<Word> words = new ArrayList<>();
-        words.add(new Word("Red", "weṭeṭṭi", R.drawable.color_red, R.color.category_colors));
-        words.add(new Word("Green", "Chokokki", R.drawable.color_green, R.color.category_colors));
-        words.add(new Word("Brown", "Takaaki", R.drawable.color_brown, R.color.category_colors));
-        words.add(new Word("Gray", "Topoppi", R.drawable.color_gray, R.color.category_colors));
-        words.add(new Word("Black", "Kululli", R.drawable.color_black, R.color.category_colors));
-        words.add(new Word("White", "Kelelli", R.drawable.color_white, R.color.category_colors));
-        words.add(new Word("Dusty Yellow", "Topiise", R.drawable.color_dusty_yellow, R.color.category_colors));
-        words.add(new Word("mustard Yellow", "Chiwite", R.drawable.color_mustard_yellow, R.color.category_colors));
+        final ArrayList<Word> words = new ArrayList<>();
+        words.add(new Word("Red", "weṭeṭṭi", R.drawable.color_red, R.color.category_colors, R.raw.color_red));
+        words.add(new Word("Green", "Chokokki", R.drawable.color_green, R.color.category_colors, R.raw.color_green));
+        words.add(new Word("Brown", "Takaaki", R.drawable.color_brown, R.color.category_colors, R.raw.color_brown));
+        words.add(new Word("Gray", "Topoppi", R.drawable.color_gray, R.color.category_colors, R.raw.color_gray));
+        words.add(new Word("Black", "Kululli", R.drawable.color_black, R.color.category_colors, R.raw.color_black));
+        words.add(new Word("White", "Kelelli", R.drawable.color_white, R.color.category_colors, R.raw.color_white));
+        words.add(new Word("Dusty Yellow", "Topiise", R.drawable.color_dusty_yellow, R.color.category_colors, R.raw.color_dusty_yellow));
+        words.add(new Word("mustard Yellow", "Chiwite", R.drawable.color_mustard_yellow, R.color.category_colors, R.raw.color_mustard_yellow));
         this.mViewHolder.colorsListView = findViewById(R.id.colors_list_view);
-        WordAdapter adapter = new WordAdapter(this,words);
+        WordAdapter adapter = new WordAdapter(this, words);
         this.mViewHolder.colorsListView.setAdapter(adapter);
+        this.mViewHolder.colorsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mMediaPlayer = MediaPlayer.create(view.getContext(), words.get(position).getmSoundWord());
+                mMediaPlayer.start();
+                Toast.makeText(view.getContext(), getString(R.string.play) + " " + words.get(position).getMiwokTranslation(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mMediaPlayer.stop();
+        if(mMediaPlayer != null){
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
     }
 
     private class ViewHolder {
