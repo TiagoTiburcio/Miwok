@@ -1,51 +1,33 @@
 package com.example.android.miwok.entities;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 
 public class Word {
     private String mDefaultTranslation;
     private String mMiwokTranslation;
-    private Color backColor;
+    private int backColor;
+    private int mSymbolWord;
 
-    public Color getBackColor() {
+    public int getBackColor() {
         return backColor;
     }
 
-    public void setBackColor(Color backColor) {
+    private void setBackColor(int backColor) {
         this.backColor = backColor;
     }
 
-
-
-    public Drawable getmSymbolWord() {
+    public int getmSymbolWord() {
         return mSymbolWord;
     }
 
-    public void setmSymbolWord(Drawable mSymbolWord) {
+    private void setmSymbolWord(int mSymbolWord) {
         this.mSymbolWord = mSymbolWord;
-    }
-
-    private Drawable mSymbolWord;
-
-    public Word(String defaultTranslation, String miwokTranslation, Drawable symbolWord, Color back) {
-        this.setmDefaultTranslation(defaultTranslation);
-        this.setMiwokTranslation(miwokTranslation);
-        this.setmSymbolWord(symbolWord);
-        this.setBackColor(back);
-    }
-
-    public Word(String defaultTranslation, String miwokTranslation, Color back) {
-        this.setmDefaultTranslation(defaultTranslation);
-        this.setMiwokTranslation(miwokTranslation);
-        this.setBackColor(back);
     }
 
     public String getMiwokTranslation() {
         return mMiwokTranslation;
     }
 
-    public void setMiwokTranslation(String mMiwokTranslation) {
+    private void setMiwokTranslation(String mMiwokTranslation) {
         this.mMiwokTranslation = mMiwokTranslation;
     }
 
@@ -53,9 +35,22 @@ public class Word {
         return mDefaultTranslation;
     }
 
-    public void setmDefaultTranslation(String mDefaultTranslation) {
+    private void setmDefaultTranslation(String mDefaultTranslation) {
         this.mDefaultTranslation = mDefaultTranslation;
     }
 
+    public Word(String defaultTranslation, String miwokTranslation, int symbolWord, int back) {
+        this.setmDefaultTranslation(defaultTranslation);
+        this.setMiwokTranslation(miwokTranslation);
+        this.setmSymbolWord(symbolWord);
+        this.setBackColor(back);
+    }
+
+    public Word(String defaultTranslation, String miwokTranslation, int back) {
+        this.setmDefaultTranslation(defaultTranslation);
+        this.setMiwokTranslation(miwokTranslation);
+        this.setBackColor(back);
+        this.setmSymbolWord(0);
+    }
 
 }

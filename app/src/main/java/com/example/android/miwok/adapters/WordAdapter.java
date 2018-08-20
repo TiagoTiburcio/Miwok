@@ -39,15 +39,16 @@ public class WordAdapter extends ArrayAdapter<Word> {
         this.mViewHolder.miwokTranslationTextView = listItemView.findViewById(R.id.miwok_text_view);
         this.mViewHolder.symbolWordImageView = listItemView.findViewById(R.id.symbol_image_view);
 
-        this.mViewHolder.listItemRelativeLayout.setBackgroundColor(courrentWordList.getBackColor().hashCode());
-        this.mViewHolder.defaultTranslationTextView.setText(courrentWordList.getmDefaultTranslation());
-        this.mViewHolder.miwokTranslationTextView.setText(courrentWordList.getMiwokTranslation());
-        if(courrentWordList.getmSymbolWord() != null) {
-            this.mViewHolder.symbolWordImageView.setImageDrawable(courrentWordList.getmSymbolWord());
-        }else {
-            this.mViewHolder.symbolWordImageView.setVisibility(View.GONE);
+        if (courrentWordList != null) {
+            this.mViewHolder.listItemRelativeLayout.setBackgroundResource(courrentWordList.getBackColor());
+            this.mViewHolder.defaultTranslationTextView.setText(courrentWordList.getmDefaultTranslation());
+            this.mViewHolder.miwokTranslationTextView.setText(courrentWordList.getMiwokTranslation());
+            if (courrentWordList.getmSymbolWord() != 0) {
+                this.mViewHolder.symbolWordImageView.setImageResource(courrentWordList.getmSymbolWord());
+            } else {
+                this.mViewHolder.symbolWordImageView.setVisibility(View.GONE);
+            }
         }
-
         return listItemView;
     }
 
