@@ -1,5 +1,7 @@
 package com.example.android.miwok.activities;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,13 +44,39 @@ public class FamilyActivity extends AppCompatActivity {
         this.mvViewHolder.familyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mMediaPlayer = MediaPlayer.create(view.getContext(), words.get(position).getmSoundWord());
-                mMediaPlayer.start();
+                AudioManager am = (AudioManager) view.getContext().getSystemService(Context.AUDIO_SERVICE);
+                AudioManager.OnAudioFocusChangeListener afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+                    @Override
+                    public void onAudioFocusChange(int focusChange) {
+
+                    }
+                };
+                // Request audio focus for playback
+                int result = am.requestAudioFocus(afChangeListener,
+                        // Use the music stream.
+                        AudioManager.STREAM_MUSIC,
+                        // Request permanent focus.
+                        AudioManager.AUDIOFOCUS_GAIN);
+
+                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    // Start playback
+                    mMediaPlayer = MediaPlayer.create(view.getContext(), words.get(position).getmSoundWord());
+                    mMediaPlayer.start();
+                    am.abandonAudioFocus(afChangeListener);
+                }
                 Toast.makeText(view.getContext(), getString(R.string.play) + " " + words.get(position).getMiwokTranslation(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mMediaPlayer.stop();
+        if (mMediaPlayer != null) {
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
+    }
     private class ViewHolder {
         ListView familyListView;
     }

@@ -1,6 +1,5 @@
 package com.example.android.miwok.entities;
 
-
 public class Word {
     private String mDefaultTranslation;
     private String mMiwokTranslation;
